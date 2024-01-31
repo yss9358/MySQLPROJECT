@@ -9,67 +9,57 @@ public class ManagerApp {
 		Scanner sc = new Scanner(System.in);
 		ManagerDao managerDao = new ManagerDao();
 
-		int memberId;
+		String memberId;
 		String menuNo;
 		String str;
 
 		while (true) {
-			System.out.println("---------------------------------");
+			System.out.println("-------------------------------------------------------------");
 			System.out.println("1.근태관리 2.부서관리 3.회원관리 ");
-			System.out.println("/q 입력시 프로그램 종료");
-			System.out.println("--------------------------------");
+			System.out.println("(/q 입력시 프로그램 종료)");
+			System.out.println("-------------------------------------------------------------");
 			System.out.print("선택>");
-			String menu = sc.nextLine();
-			if (menu.equals("/q")) {
+			String menuSelect = sc.nextLine();
+			
+			if (menuSelect.equals("/q")) {
 				System.out.println("프로그램종료");
 				break;
 			}
 			
-			switch (menu) {
+			switch (menuSelect) {
 			case "1":
-				System.out.println("근태관리프로그램");
+				System.out.println("<근태관리 프로그램>");
 				break;
 				
 			case "2" :
-				System.out.println("부서관리프로그램");
+				System.out.println("<부서관리 프로그램>");
 				break;
 			
 			case "3" :
+				System.out.println("<회원관리 프로그램 접속>");
+				System.out.println("-------------------------------------------------------------");
 				managerDao.memberList();
+				System.out.println("-------------------------------------------------------------");
 				System.out.print("수정할 직원번호 선택>");
-				memberId = sc.nextInt();
-				sc.nextLine();
-				System.out.println("1.아이디 2.비밀번호 3.이름 4.전화번호 5.생년월일 6.입사일 7.부서번호 8.직급");
-				menuNo = sc.nextLine();
+				// 1~직원아이디 수까지 for 문? (-1 이면 뒤로가기 /q 입력 종료)
+				// 여기까지 반복되게 해야됨
+				memberId = sc.nextLine(); // 직원번호
+				System.out.println("1.아이디 2.이름 3.전화번호 4.생년월일 5.입사일 6.부서번호 7.부서명 8.직급");
+				System.out.print("수정할 메뉴 선택>"); 
+				//1~8이면 진행 (-1이면 뒤로가기 /q입력 종료)
+				menuNo = sc.nextLine(); // 수정할 메뉴
 				managerDao.memberUpdate(memberId, menuNo);
+				System.out.println("수정이 완료되었습니다.");
+				break;
+				
+			default :
+					System.out.println("다른번호를 입력하세요");
+
 			}
-			
-
+		
 		}
-
-		/*
-		 * 
-		 * System.out.print("수정할 직원번호 선택>"); int no2 = sc.nextInt();
-		 * 
-		 * 
-		 * 
-		 * ManagerDao managerDao = new ManagerDao();
-		 * 
-		 * //managerDao.memberList();
-		 * System.out.println("-------------------------------------------------"); int
-		 * memberId; int menuNo; String str;
-		 * 
-		 * 
-		 * while(stop) { System.out.print("수정할 직원번호 선택>"); memberId = sc.nextInt();
-		 * System.out.println("1.아이디 2.비밀번호 3.이름 4.전화번호 5.생년월일 6.입사일 7.부서번호 8.직급");
-		 * menuNo = sc.nextInt();
-		 * 
-		 * }
-		 * 
-		 * 
-		 * managerDao.memberUpdate();
-		 * 
-		 */
+		
+		sc.close();
 
 	}
 

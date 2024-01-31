@@ -131,187 +131,169 @@ public class ManagerDao {
 		return memberList;
 	} // memberList();
 
-	public void memberUpdate(int no, String str) {
+	public void memberUpdate(String str1, String str2) {
 		this.getConnection();
 		Scanner sc = new Scanner(System.in);
-		int memberId;
-		String menuNo;
-		
-		
-	
-		
-			System.out.print("수정할 직원번호 선택>");
-			memberId = sc.nextInt();
-			sc.nextLine();
-			System.out.println("1.아이디 2.비밀번호 3.이름 4.전화번호 5.생년월일 6.입사일 7.부서번호 8.직급");
-			menuNo = sc.nextLine();
+		String memberId = str1; // 직원번호 str1
+		String menuNo = str2; // 수정할 메뉴 column str2
+		String str; // 변경할 값
+
+		//System.out.println("1.아이디 2.이름 3.전화번호 4.생년월일 5.입사일 6.부서번호 7.부서명 8.직급");
+		switch (menuNo) {
 			
-			switch (menuNo) {
+		case "1": // 아이디
+			try {
+				System.out.print("변경할 아이디 입력>");
+				str = sc.nextLine();
+				String query = "";
+				query += " update members ";
+				query += " set id = ? ";
+				query += " where member_id = ? ";
 
-			case "1" : // 아이디
-				try {
-					System.out.print("변경할 아이디 입력>");
-					str = sc.nextLine();
-					String query = "";
-					query += " update members ";
-					query += " set id = ? ";
-					query += " where member_id = ? ";
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, str);
+				pstmt.setString(2, memberId);
+				pstmt.executeUpdate();
 
-					pstmt = conn.prepareStatement(query);
-					pstmt.setString(1, str);
-					pstmt.setInt(2, no);
-					pstmt.executeUpdate();
-
-				} catch (SQLException e) {
-					System.out.println("error:" + e);
-				}
-				break;
-
-			case "2" : // 비밀번호
-				try {
-					System.out.print("변경할 비밀번호 입력>");
-					str = sc.nextLine();
-					String query = "";
-					query += " update members ";
-					query += " set pw = ? ";
-					query += " where member_id = ? ";
-
-					pstmt = conn.prepareStatement(query);
-					pstmt.setString(1, str);
-					pstmt.setInt(2, memberId);
-					pstmt.executeUpdate();
-
-				} catch (SQLException e) {
-					System.out.println("error:" + e);
-				}
-				break;
-
-			case "3" : // 이름
-				try {
-					System.out.print("변경할 이름 입력>");
-					str = sc.nextLine();
-					String query = "";
-					query += " update members ";
-					query += " set name = ? ";
-					query += " where member_id = ? ";
-
-					pstmt = conn.prepareStatement(query);
-					pstmt.setString(1, str);
-					pstmt.setInt(2, memberId);
-					pstmt.executeUpdate();
-				} catch (SQLException e) {
-					System.out.println("error:" + e);
-				}
-				break;
-
-			case "4" : // 전화번호
-				try {
-					System.out.print("변경할 전화번호 입력>");
-					str = sc.nextLine();
-					String query = "";
-					query += " update members ";
-					query += " set hp = ? ";
-					query += " where member_id = ? ";
-
-					pstmt = conn.prepareStatement(query);
-					pstmt.setString(1, str);
-					pstmt.setInt(2, memberId);
-					pstmt.executeUpdate();
-				} catch (SQLException e) {
-					System.out.println("error:" + e);
-				}
-				break;
-
-			case "5" : // 생년월일
-				try {
-					System.out.print("변경할 생년월일 입력>");
-					str = sc.nextLine();
-					String query = "";
-					query += " update members ";
-					query += " set birth = ? ";
-					query += " where member_id = ? ";
-
-					pstmt = conn.prepareStatement(query);
-					pstmt.setString(1, str);
-					pstmt.setInt(2, memberId);
-					pstmt.executeUpdate();
-				} catch (SQLException e) {
-					System.out.println("error:" + e);
-				}
-				break;
-
-			case "6" : // 입사일
-				try {
-					System.out.print("변경할 입사일 입력>");
-					str = sc.nextLine();
-					String query = "";
-					query += " update members ";
-					query += " set hire_date = ? ";
-					query += " where member_id = ? ";
-
-					pstmt = conn.prepareStatement(query);
-					pstmt.setString(1, str);
-					pstmt.setInt(2, memberId);
-					pstmt.executeUpdate();
-				} catch (SQLException e) {
-					System.out.println("error:" + e);
-				}
-				break;
-
-			case "7" : // 부서번호
-				try {
-					System.out.print("변경할 부서번호 입력>");
-					str = sc.nextLine();
-					String query = "";
-					query += " update members ";
-					query += " set department_id = ? ";
-					query += " where member_id = ? ";
-
-					pstmt = conn.prepareStatement(query);
-					pstmt.setString(1, str);
-					pstmt.setInt(2, memberId);
-					pstmt.executeUpdate();
-				} catch (SQLException e) {
-					System.out.println("error:" + e);
-				}
-				break;
-
-			case "8" : // 부서명
-				try {
-					System.out.print("변경할 부서명 입력>");
-					str = sc.nextLine();
-					String query = "";
-					query += " update members ";
-					query += " set department_name = ? ";
-					query += " where member_id = ? ";
-
-					pstmt = conn.prepareStatement(query);
-					pstmt.setString(1, str);
-					pstmt.setInt(2, memberId);
-					pstmt.executeUpdate();
-				} catch (SQLException e) {
-					System.out.println("error:" + e);
-				}
-			case "-1" : 
-				System.out.println("프로그램종료");
-				break;
-			case "/q" :
-				break;
-				
-				
-				// switch case
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
 			}
-			
-			
-			
+			break;
 
-		
-			
-			
-			
-			this.close();
+		case "2": // 이름
+			try {
+				System.out.print("변경할 이름 입력>");
+				str = sc.nextLine();
+				String query = "";
+				query += " update members ";
+				query += " set name = ? ";
+				query += " where member_id = ? ";
 
-	
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, str);
+				pstmt.setString(2, memberId);
+				pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+			break;
+
+		case "3": // 전화번호
+			try {
+				System.out.print("변경할 이름 입력>");
+				str = sc.nextLine();
+				String query = "";
+				query += " update members ";
+				query += " set hp = ? ";
+				query += " where member_id = ? ";
+
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, str);
+				pstmt.setString(2, memberId);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+			break;
+
+		case "4": // 생년월일
+			try {
+				System.out.print("변경할 생년월일 입력>");
+				str = sc.nextLine();
+				String query = "";
+				query += " update members ";
+				query += " set birth = ? ";
+				query += " where member_id = ? ";
+
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, str);
+				pstmt.setString(2, memberId);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+			break;
+
+		case "5": // 입사일
+			try {
+				System.out.print("변경할 생년월일 입력>");
+				str = sc.nextLine();
+				String query = "";
+				query += " update members ";
+				query += " set hire_date = ? ";
+				query += " where member_id = ? ";
+
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, str);
+				pstmt.setString(2, memberId);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+			break;
+
+		case "6": // 부서번호
+			try {
+				System.out.print("변경할 입사일 입력>");
+				str = sc.nextLine();
+				String query = "";
+				query += " update members ";
+				query += " set department_id = ? ";
+				query += " where member_id = ? ";
+
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, str);
+				pstmt.setString(2, memberId);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+			break;
+
+		case "7": // 부서명
+			try {
+				System.out.print("변경할 부서번호 입력>");
+				str = sc.nextLine();
+				String query = "";
+				query += " update members ";
+				query += " set department_name = ? ";
+				query += " where member_id = ? ";
+
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, str);
+				pstmt.setString(2, memberId);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+			break;
+
+		case "8": // 직급
+			try {
+				System.out.print("변경할 부서명 입력>");
+				str = sc.nextLine();
+				String query = "";
+				query += " update members ";
+				query += " set position = ? ";
+				query += " where member_id = ? ";
+
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, str);
+				pstmt.setString(2, memberId);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+		case "-1":
+			System.out.println("프로그램종료");
+			break;
+		case "/q":
+			break;
+
+		}// switch case
+
+		this.close();
 
 	}
 
