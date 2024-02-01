@@ -95,8 +95,9 @@ public class ManagerDao {
 			}
 			System.out.println("직원번호 아이디  이름      전화번호\t 생년월일\t  입사일     부서번호  부서명   직급 ");
 			for (ManagerVo vo : memberList) {
-				System.out.println(vo.getMemberId() + "\t" + vo.getId() + "\t"  + vo.getName() + "\t" + vo.getHp() + "\t"+ vo.getBirth()
-					+ "\t" + vo.getHireDate() + "\t" + vo.getDepartmentId() + "\t" + vo.getDepartmentName() + "\t" + vo.getPosition());
+				System.out.println(vo.getMemberId() + "\t" + vo.getId() + "\t" + vo.getName() + "\t" + vo.getHp() + "\t"
+						+ vo.getBirth() + "\t" + vo.getHireDate() + "\t" + vo.getDepartmentId() + "\t"
+						+ vo.getDepartmentName() + "\t" + vo.getPosition());
 			}
 
 		} catch (SQLException e) {
@@ -113,9 +114,9 @@ public class ManagerDao {
 		String menuNo = str2; // 수정할 메뉴 column str2
 		String str; // 변경할 값
 
-		//System.out.println("1.아이디 2.이름 3.전화번호 4.생년월일 5.입사일 6.부서번호 7.부서명 8.직급");
+		// System.out.println("1.아이디 2.이름 3.전화번호 4.생년월일 5.입사일 6.부서번호 7.부서명 8.직급");
 		switch (menuNo) {
-			
+
 		case "1": // 아이디
 			try {
 				System.out.print("변경할 아이디 입력>");
@@ -265,6 +266,127 @@ public class ManagerDao {
 
 		this.close();
 
-	}
+	} // memberUpdate()
+
+	public void memberAdd() {
+		this.getConnection();
+		Scanner sc = new Scanner(System.in);
+
+		try {
+			System.out.println("추가할 멤버정보 입력>");
+			System.out.print("아이디>");
+			String id = sc.nextLine();
+			System.out.print("비밀번호>");
+			String pw = sc.nextLine();
+			System.out.print("이름>");
+			String name = sc.nextLine();
+			System.out.print("전화번호>");
+			String hp = sc.nextLine();
+			System.out.print("생년월일>");
+			String birth = sc.nextLine();
+			System.out.print("입사일>");
+			String hireDate = sc.nextLine();
+			System.out.print("직급>");
+			String position = sc.nextLine();
+
+			String query = "";
+			query += " insert into members ";
+			query += " values(null, ?, ?, ?, ?, ?, null, ?, null, ?) ";
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			pstmt.setString(3, name);
+			pstmt.setString(4, hp);
+			pstmt.setString(5, birth);
+			pstmt.setString(6, hireDate);
+			pstmt.setString(7, position);
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+		this.close();
+
+		/*
+		 * insert into members values(null, id, pw, name, hp, birth, null, hire_date,
+		 * null, position) ;
+		 */
+	} // memberAdd
+
+	public void memberSearch(String search) {
+		this.getConnection();
+
+		List<ManagerVo> memberList = new ArrayList<ManagerVo>();
+
+		try {
+			String query = "";
+			query += " select	m.member_id, ";
+			query += " 			m.id, ";
+			query += "  		m.name, ";
+			query += "   		m.hp, ";
+			query += "   		m.birth, ";
+			query += " 			m.hire_date, ";
+			query += "   		m.department_id, ";
+			query += "  		d.department_name, ";
+			query += "   		m.position ";
+			query += " from members m ";
+			query += " 		left join departments d ";
+			query += "  		   on m.department_id = d.department_id ";
+			query += " where m.position = ? ";
+
+			// query += " where m.member_id = ? ";
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, search);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int memberId = rs.getInt("m.member_id");
+				String id = rs.getString("m.id");
+				String name = rs.getString("m.name");
+				String hp = rs.getString("m.hp");
+				String birth = rs.getString("m.birth");
+				String hireDate = rs.getString("m.hire_date");
+				int departmentId = rs.getInt("m.department_id");
+				String departmentName = rs.getString("d.department_name");
+				String position = rs.getString("m.position");
+
+				ManagerVo mangerVo = new ManagerVo(memberId, id, name, hp, birth, hireDate, departmentId,
+						departmentName, position);
+				memberList.add(mangerVo);
+			}
+
+			for (ManagerVo managerVo : memberList) {
+				// System.out.println();
+				// System.out.println("직원번호 아이디 이름 전화번호\t 생년월일\t 입사일 부서번호 부서명 직급 ");
+				System.out.println(managerVo);
+			}
+
+			this.close();
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+	}// memberSearch
+	
+	public void memberDelete(int no) {
+		this.getConnection();
+		
+		try {
+			String query = "";
+			query += " delete from members ";
+			query += " where member_id = ? ";
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			System.out.println("error:" + e);
+		}
+		
+		this.close();
+	} // memberDelete
 
 }

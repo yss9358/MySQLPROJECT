@@ -138,11 +138,11 @@ public class ManagerVo {
 	}
 
 	// 메소드 일반
-	@Override
+	
 	public String toString() {
-		return "ManagerVo [memberId=" + memberId + ", id=" + id + ", name=" + name + ", hp=" + hp + ", birth=" + birth
-				+ ", hireDate=" + hireDate + ", departmentId=" + departmentId + ", departmentName=" + departmentName
-				+ ", position=" + position + ", date=" + date + ", state=" + state + "]";
+		return  memberId + "	" + id + "	" + name + "	" + hp + "	" + birth
+				+ "	" + hireDate + "	" + departmentId + "	" + departmentName
+				+ "	" + position ;
 	}
 	
 }

@@ -128,3 +128,9 @@ where date='2017.01.17'
 group by state
 ;
 
+show tables;
+
+insert into members
+values(null, id, pw, name, hp, birth, null, hire_date, null, position)
+;
+

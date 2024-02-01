@@ -54,6 +54,7 @@ create table history(
    REFERENCES members(member_id)
 );
 
+alter table history modify column date Date;
 select *
 from departments d
 left join members m
@@ -115,7 +116,14 @@ insert into members
 values(null, 'member13', '17985', '김사장', '010-4457-1232', '1995-08-25', null, '2016-09-13', null, '팀원')
 ;
 
+insert into members
+values(null, 'member13', '17985', '김사장', '010-4457-1232', '1995-08-25', null, '2016-09-13', null, '팀원')
+;
 select * from members;
+
+delete from members
+where member_id = 14
+;
 
 show tables;
 select * from departments;
