@@ -370,7 +370,7 @@ public class ManagerDao {
 		}
 	}// memberSearch
 	
-	public void memberDelete(int no) {
+	public void memberDelete(String no) {
 		this.getConnection();
 		
 		try {
@@ -379,7 +379,7 @@ public class ManagerDao {
 			query += " where member_id = ? ";
 			
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, no);
+			pstmt.setString(1, no);
 			pstmt.executeUpdate();
 			
 		}catch(SQLException e) {

@@ -109,6 +109,7 @@ public class ManagerApp {
 					System.out.print("선택>");
 					menuSelect = sc.nextLine();
 					System.out.println();
+					
 					if ("/q".equals(menuSelect)) {
 						break exit;
 					}
@@ -117,8 +118,10 @@ public class ManagerApp {
 					}
 					switch (menuSelect) {
 					case "1":
+						System.out.println("추가할 직원의 정보를 입력하세요");
 						managerDao.memberAdd();
-						
+						System.out.println("직원 정보가 추가 되었습니다");
+						System.out.println();
 						break;
 
 					case "2":
@@ -170,10 +173,11 @@ public class ManagerApp {
 					case "3":
 						System.out.println("삭제할 직원번호를 입력하세요");
 						System.out.print("선택>");
-						int no = sc.nextInt();
+						String no = sc.nextLine();
 						managerDao.memberDelete(no);
 						System.out.println("삭제되었습니다");
 						System.out.println();
+						
 						break;
 					
 					case "4" :

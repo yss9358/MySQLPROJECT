@@ -110,7 +110,7 @@ public class ManageDao {
 				String date = rs.getString("h.date");
 				String state = rs.getString("h.state");
 
-				System.out.println(mbId + ".\t" + name + ",\t" + date + ",\t" + state);
+				System.out.println(mbId + "\t" + name + "\t" + date + "\t" + state);
 			}
 
 			// 4.결과처리
