@@ -17,8 +17,8 @@ public class ManagerDao {
 	private ResultSet rs = null;
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	private String url = "jdbc:mysql://localhost:3306/member_db";
-	private String id = "memberdb";
-	private String pw = "1234";
+	private String id = "member";
+	private String pw = "member";
 
 	// 생성자
 
@@ -53,31 +53,6 @@ public class ManagerDao {
 			System.out.println("error:" + e);
 		}
 	} // close();
-	/*
-	 * public void start() {
-	 * System.out.println("---------------------------------");
-	 * System.out.println("1.근태관리 2.부서관리 3.회원관리");
-	 * System.out.println("---------------------------------");
-	 * System.out.print("메뉴선택>"); Scanner sc = new Scanner(System.in); int no =
-	 * sc.nextInt();
-	 * 
-	 * switch (no) { case 1 :
-	 * 
-	 * break;
-	 * 
-	 * case 2 :
-	 * 
-	 * break;
-	 * 
-	 * case 3 :
-	 * 
-	 * 
-	 * break; default : System.out.println("잘못입력하셨습니다."); break;
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
 
 	public List<ManagerVo> memberList() {
 		getConnection();
@@ -118,10 +93,10 @@ public class ManagerDao {
 						departmentName, position);
 				memberList.add(mangerVo);
 			}
-			System.out.println("직원번호 아이디  이름 전화번호 생년월일 입사일 부서번호 부서명 직급 ");
+			System.out.println("직원번호 아이디  이름      전화번호\t 생년월일\t  입사일     부서번호  부서명   직급 ");
 			for (ManagerVo vo : memberList) {
-				System.out.println(vo.getMemberId() + vo.getId() + vo.getName() + vo.getHp() + vo.getBirth()
-						+ vo.getHireDate() + vo.getDepartmentId() + vo.getDepartmentName() + vo.getPosition());
+				System.out.println(vo.getMemberId() + "\t" + vo.getId() + "\t"  + vo.getName() + "\t" + vo.getHp() + "\t"+ vo.getBirth()
+					+ "\t" + vo.getHireDate() + "\t" + vo.getDepartmentId() + "\t" + vo.getDepartmentName() + "\t" + vo.getPosition());
 			}
 
 		} catch (SQLException e) {
@@ -285,11 +260,6 @@ public class ManagerDao {
 			} catch (SQLException e) {
 				System.out.println("error:" + e);
 			}
-		case "-1":
-			System.out.println("프로그램종료");
-			break;
-		case "/q":
-			break;
 
 		}// switch case
 
